@@ -8,15 +8,19 @@ import {
     Button
 } from 'react-native'
 
-let { width } = Dimensions.get('window');
+var { width } = Dimensions.get('window');
 
 const ProductCard = (props) => {
     const { name, price, image, countInStock } = props;
 
     return (
         <View style={styles.container}>
-            <Image styles={styles.image}/>
-            <View styles={styles.card}/>
+            <Image 
+            style={styles.image}
+            resizeMode="contain"
+            source={{uri: image ? image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'}}
+            />
+            <View style={styles.card}/>
             {/* Title */}
             <Text style={styles.title}>
                 {/* Calc Max Size */}
@@ -25,7 +29,13 @@ const ProductCard = (props) => {
                 }
             </Text>
             {/* Price */}
-            <Text styles={styles.price}>${price}</Text>
+            <Text style={styles.price}>${price}</Text>
+
+            { countInStock > 0 ? (
+                <View style={{ marginBottom: 60 }}>
+                    <Button title={'Add'} color={'green'}/>
+                </View>
+            ): <Text>Out of Stock</Text>}
         </View>
     )
 
@@ -38,18 +48,18 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         marginTop: 55,
-        marginBottom : 5,
+        marginBottom: 5,
         marginLeft: 10,
         alignItems: 'center',
         elevation: 8,
-        backgroundColor: 'white',
+        backgroundColor: 'white'
     },
     image: {
         width: width / 2 - 20 - 10,
         height: width / 2 - 20 - 30,
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: -45,
+        top: -45
     },
     card: {
         marginBottom: 10,
