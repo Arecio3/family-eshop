@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import data from "../../data/products.json";
 import ProductList from "./ProductList";
-import { Container, Header, Icon, Item, Input, Text } from "native-base";
+import { Header } from "react-native-elements";
+import SearchBar from '../../Shared/SearchBar';
 
-let { height } = Dimensions.get('window')
+let { height } = Dimensions.get("window");
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
+
+
 
   useEffect(() => {
     setProducts(data);
@@ -17,7 +26,18 @@ const ProductContainer = () => {
   }, []);
 
   return (
-      <>
+    <>
+      <Header
+        placement="left"
+        leftComponent={{ icon: "menu", color: "#000" }}
+        centerComponent={{ text: "Value-Mart", style: { color: "#000" } }}
+        rightComponent={{ icon: "home", color: "#000" }}
+        containerStyle={{
+            backgroundColor: '#fff'
+        }}
+      >
+      </Header>
+      <SearchBar />
       <View styles={styles.listContainer}>
         <View style={styles.container}>
           <FlatList
@@ -28,27 +48,27 @@ const ProductContainer = () => {
           />
         </View>
       </View>
-      </>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flexWrap: "wrap",
-      backgroundColor: "gainsboro",
-    },
-    listContainer: {
-      height: height,
-      flex: 1,
-      flexDirection: "row",
-      alignItems: "flex-start",
-      flexWrap: "wrap",
-      backgroundColor: "gainsboro",
-    },
-    center: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-  });
+  container: {
+    flexWrap: "wrap",
+    backgroundColor: "gainsboro",
+  },
+  listContainer: {
+    height: height,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    backgroundColor: "gainsboro",
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default ProductContainer;
